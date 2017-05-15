@@ -75,7 +75,9 @@ export default class DatePicker extends React.Component {
     todayButton: PropTypes.string,
     utcOffset: PropTypes.number,
     value: PropTypes.string,
-    withPortal: PropTypes.bool
+    withPortal: PropTypes.bool,
+    showOneWeekAtATime: PropTypes.bool,
+    subtexts: PropTypes.array
   }
 
   static get defaultProps () {
@@ -146,6 +148,7 @@ export default class DatePicker extends React.Component {
   }
 
   setOpen = (open) => {
+    console.log("setOpen setState ", this.state.preSelection._d)
     this.setState({
       open: open,
       preSelection: open && this.state.open ? this.state.preSelection : this.getInitialState().preSelection
@@ -230,6 +233,7 @@ export default class DatePicker extends React.Component {
             second: this.props.selected.second()
           })
         }
+        console.log('setting preSelection in setSelected ', changedDate._d)
         this.setState({
           preSelection: changedDate
         })
@@ -248,6 +252,7 @@ export default class DatePicker extends React.Component {
     const isDateRangePresent = ((typeof this.props.minDate !== 'undefined') && (typeof this.props.maxDate !== 'undefined'))
     const isValidDateSelection = isDateRangePresent && date ? isDayInRange(date, this.props.minDate, this.props.maxDate) : true
     if (isValidDateSelection) {
+      console.log('setting preSelection in setPreSelection ', date._d)
       this.setState({
         preSelection: date
       })
@@ -326,6 +331,7 @@ export default class DatePicker extends React.Component {
     if (!this.props.inline && (!this.state.open || this.props.disabled)) {
       return null
     }
+    console.log('preselection creating calendar with ', this.state.preSelection)
     return <WrappedCalendar
         ref="calendar"
         locale={this.props.locale}
@@ -360,7 +366,9 @@ export default class DatePicker extends React.Component {
         monthsShown={this.props.monthsShown}
         onDropdownFocus={this.handleDropdownFocus}
         onMonthChange={this.props.onMonthChange}
-        className={this.props.calendarClassName}>
+        showOneWeekAtATime={this.props.showOneWeekAtATime}
+        className={this.props.calendarClassName}
+        subtexts={this.props.subtexts}>
       {this.props.children}
     </WrappedCalendar>
   }

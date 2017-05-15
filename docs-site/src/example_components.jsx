@@ -36,6 +36,7 @@ import Children from './examples/children'
 import Portal from './examples/portal'
 import InlinePortal from './examples/inline_portal'
 import RawChange from './examples/raw_change'
+import ShowOneWeek from './examples/show_one_week_at_a_time'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import './style.scss'
@@ -180,6 +181,10 @@ export default class exampleComponents extends React.Component {
   {
     title: 'Get raw input value on change',
     component: <RawChange/>
+  },
+  {
+    title: 'Show one week at a time',
+    component: <ShowOneWeek/>
   }]
 
   renderExamples = () =>

@@ -54,7 +54,9 @@ export default class Calendar extends React.Component {
     showYearDropdown: PropTypes.bool,
     startDate: PropTypes.object,
     todayButton: PropTypes.string,
-    utcOffset: PropTypes.number
+    utcOffset: PropTypes.number,
+    showOneWeekAtATime: PropTypes.bool,
+    subtexts: PropTypes.array
   }
 
   static get defaultProps () {
@@ -62,7 +64,8 @@ export default class Calendar extends React.Component {
       onDropdownFocus: () => {},
       utcOffset: moment.utc().utcOffset(),
       monthsShown: 1,
-      forceShowMonthNavigation: false
+      forceShowMonthNavigation: false,
+      subtexts: []
     }
   }
 
@@ -76,6 +79,7 @@ export default class Calendar extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.preSelection && !isSameDay(nextProps.preSelection, this.props.preSelection)) {
+      console.log("componentWillReceiveProps setting state ", nextProps.preSelection)
       this.setState({
         date: this.localizeMoment(nextProps.preSelection)
       })
@@ -124,20 +128,25 @@ export default class Calendar extends React.Component {
   localizeMoment = date => date.clone().locale(this.props.locale || moment.locale())
 
   increaseMonth = () => {
+    let timeDuration = this.props.showOneWeekAtATime ? 'week' : 'month'
     this.setState({
-      date: this.state.date.clone().add(1, 'month')
+      date: this.state.date.clone().add(1, timeDuration)
     }, () => this.handleMonthChange(this.state.date))
   }
 
   decreaseMonth = () => {
+    let timeDuration = this.props.showOneWeekAtATime ? 'week' : 'month'
     this.setState({
-      date: this.state.date.clone().subtract(1, 'month')
+      date: this.state.date.clone().subtract(1, timeDuration)
     }, () => this.handleMonthChange(this.state.date))
   }
 
   handleDayClick = (day, event) => this.props.onSelect(day, event)
 
-  handleDayMouseEnter = day => this.setState({ selectingDate: day })
+  handleDayMouseEnter = day => {
+    console.log("handleDayMouseEnter setting ", day)
+    this.setState({ selectingDate: day })
+  }
 
   handleMonthMouseLeave = () => this.setState({ selectingDate: null })
 
@@ -154,6 +163,7 @@ export default class Calendar extends React.Component {
   }
 
   changeMonth = (month) => {
+    console.log("changing month", month)
     this.setState({
       date: this.state.date.clone().set('month', month)
     }, () => this.handleMonthChange(this.state.date))
@@ -258,6 +268,7 @@ export default class Calendar extends React.Component {
     var monthList = []
     for (var i = 0; i < this.props.monthsShown; ++i) {
       var monthDate = this.state.date.clone().add(i, 'M')
+      console.log('monthDate', monthDate)
       var monthKey = `month-${i}`
       monthList.push(
           <div key={monthKey} className="react-datepicker__month-container">
@@ -295,7 +306,9 @@ export default class Calendar extends React.Component {
                 startDate={this.props.startDate}
                 endDate={this.props.endDate}
                 peekNextMonth={this.props.peekNextMonth}
-                utcOffset={this.props.utcOffset}/>
+                showOneWeekAtATime={this.props.showOneWeekAtATime}
+                utcOffset={this.props.utcOffset}
+                subtexts={this.props.subtexts}/>
           </div>
       )
     }

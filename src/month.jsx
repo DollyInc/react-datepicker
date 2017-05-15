@@ -28,7 +28,9 @@ export default class Month extends React.Component {
     selectsStart: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     startDate: PropTypes.object,
-    utcOffset: PropTypes.number
+    utcOffset: PropTypes.number,
+    showOneWeekAtATime: PropTypes.bool,
+    subtexts: PropTypes.array
   }
 
   handleDayClick = (day, event) => {
@@ -59,8 +61,13 @@ export default class Month extends React.Component {
     const weeks = []
     var isFixedHeight = this.props.fixedHeight
     let currentWeekStart = this.props.day.clone().startOf('month').startOf('week')
+    if (this.props.showOneWeekAtATime) {
+      currentWeekStart = this.props.day.clone().startOf('week')
+    }
     let i = 0
     let breakAfterNextPush = false
+
+    // console.debug('STARTING', currentWeekStart)
 
     while (true) {
       weeks.push(<Week
@@ -84,7 +91,10 @@ export default class Month extends React.Component {
           showWeekNumber={this.props.showWeekNumbers}
           startDate={this.props.startDate}
           endDate={this.props.endDate}
-          utcOffset={this.props.utcOffset}/>)
+          utcOffset={this.props.utcOffset}
+          subtexts={this.props.subtexts[i] || []}/>)
+
+      if (this.props.showOneWeekAtATime) break
 
       if (breakAfterNextPush) break
 

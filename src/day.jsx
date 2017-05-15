@@ -19,7 +19,8 @@ export default class Day extends React.Component {
     selectsEnd: PropTypes.bool,
     selectsStart: PropTypes.bool,
     startDate: PropTypes.object,
-    utcOffset: PropTypes.number
+    utcOffset: PropTypes.number,
+    subtext: PropTypes.string
   }
 
   static defaultProps = {
@@ -133,12 +134,8 @@ export default class Day extends React.Component {
       this.props.month !== this.props.day.month()
   }
 
-  getClassNames = () => {
+  getContainerClassNames = () => {
     return classnames('react-datepicker__day', {
-      'react-datepicker__day--disabled': this.isDisabled(),
-      'react-datepicker__day--selected': this.isSameDay(this.props.selected),
-      'react-datepicker__day--keyboard-selected': this.isKeyboardSelected(),
-      'react-datepicker__day--highlighted': this.isHighlighted(),
       'react-datepicker__day--range-start': this.isRangeStart(),
       'react-datepicker__day--range-end': this.isRangeEnd(),
       'react-datepicker__day--in-range': this.isInRange(),
@@ -151,15 +148,30 @@ export default class Day extends React.Component {
     })
   }
 
+  getClassNames = () => {
+    return classnames('react-datepicker__day-selectable', {
+      'react-datepicker__day-selectable--disabled': this.isDisabled(),
+      'react-datepicker__day-selectable--selected': this.isSameDay(this.props.selected),
+      'react-datepicker__day-selectable--keyboard-selected': this.isKeyboardSelected(),
+      'react-datepicker__day-selectable--highlighted': this.isHighlighted()
+    })
+  }
+
   render () {
     return (
       <div
-          className={this.getClassNames()}
-          onClick={this.handleClick}
-          onMouseEnter={this.handleMouseEnter}
-          aria-label={`day-${this.props.day.date()}`}
-          role="option">
+          className={this.getContainerClassNames()}>
+        <div
+            className={this.getClassNames()}
+            aria-label={`day-${this.props.day.date()}`}
+            role="option"
+            onClick={this.handleClick}
+            onMouseEnter={this.handleMouseEnter}>
           {this.props.day.date()}
+        </div>
+        <div>
+          {this.props.subtext}
+        </div>
       </div>
     )
   }
