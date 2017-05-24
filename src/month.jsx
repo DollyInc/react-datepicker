@@ -67,8 +67,6 @@ export default class Month extends React.Component {
     let i = 0
     let breakAfterNextPush = false
 
-    // console.debug('STARTING', currentWeekStart)
-
     while (true) {
       weeks.push(<Week
           key={i}

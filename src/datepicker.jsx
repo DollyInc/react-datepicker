@@ -148,7 +148,6 @@ export default class DatePicker extends React.Component {
   }
 
   setOpen = (open) => {
-    console.log("setOpen setState ", this.state.preSelection._d)
     this.setState({
       open: open,
       preSelection: open && this.state.open ? this.state.preSelection : this.getInitialState().preSelection
@@ -215,6 +214,9 @@ export default class DatePicker extends React.Component {
     )
     this.setSelected(date, event)
     this.setOpen(false)
+    // this is stupid and I shouldn't have to do this
+    // but the calendar shifts weeks if I don't, and I don't know why
+    this.setPreSelection(date)
   }
 
   setSelected = (date, event, keepInput) => {
@@ -233,7 +235,6 @@ export default class DatePicker extends React.Component {
             second: this.props.selected.second()
           })
         }
-        console.log('setting preSelection in setSelected ', changedDate._d)
         this.setState({
           preSelection: changedDate
         })
@@ -252,7 +253,6 @@ export default class DatePicker extends React.Component {
     const isDateRangePresent = ((typeof this.props.minDate !== 'undefined') && (typeof this.props.maxDate !== 'undefined'))
     const isValidDateSelection = isDateRangePresent && date ? isDayInRange(date, this.props.minDate, this.props.maxDate) : true
     if (isValidDateSelection) {
-      console.log('setting preSelection in setPreSelection ', date._d)
       this.setState({
         preSelection: date
       })
@@ -331,7 +331,6 @@ export default class DatePicker extends React.Component {
     if (!this.props.inline && (!this.state.open || this.props.disabled)) {
       return null
     }
-    console.log('preselection creating calendar with ', this.state.preSelection)
     return <WrappedCalendar
         ref="calendar"
         locale={this.props.locale}

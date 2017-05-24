@@ -79,7 +79,6 @@ export default class Calendar extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.preSelection && !isSameDay(nextProps.preSelection, this.props.preSelection)) {
-      console.log("componentWillReceiveProps setting state ", nextProps.preSelection)
       this.setState({
         date: this.localizeMoment(nextProps.preSelection)
       })
@@ -144,7 +143,6 @@ export default class Calendar extends React.Component {
   handleDayClick = (day, event) => this.props.onSelect(day, event)
 
   handleDayMouseEnter = day => {
-    console.log("handleDayMouseEnter setting ", day)
     this.setState({ selectingDate: day })
   }
 
@@ -163,7 +161,6 @@ export default class Calendar extends React.Component {
   }
 
   changeMonth = (month) => {
-    console.log("changing month", month)
     this.setState({
       date: this.state.date.clone().set('month', month)
     }, () => this.handleMonthChange(this.state.date))
@@ -268,7 +265,6 @@ export default class Calendar extends React.Component {
     var monthList = []
     for (var i = 0; i < this.props.monthsShown; ++i) {
       var monthDate = this.state.date.clone().add(i, 'M')
-      console.log('monthDate', monthDate)
       var monthKey = `month-${i}`
       monthList.push(
           <div key={monthKey} className="react-datepicker__month-container">
