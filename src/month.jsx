@@ -90,7 +90,7 @@ export default class Month extends React.Component {
           startDate={this.props.startDate}
           endDate={this.props.endDate}
           utcOffset={this.props.utcOffset}
-          subtexts={this.props.subtexts[i] || []}/>)
+          subtexts={this.props.subtexts ? this.props.subtexts[i] : []}/>)
 
       if (this.props.showOneWeekAtATime) break
 

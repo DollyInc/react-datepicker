@@ -8,9 +8,9 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
 
-# test:
-#   override:
-#     - yarn test
+test:
+  override:
+    - yarn test
 
 deployment:
   npm:

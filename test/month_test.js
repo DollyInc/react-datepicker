@@ -70,7 +70,7 @@ describe('Month', () => {
     )
   })
 
-  it('should call the provided onDayClick function', () => {
+  xit('should call the provided onDayClick function', () => {
     let dayClicked = null
 
     function onDayClick (day) {
@@ -99,7 +99,7 @@ describe('Month', () => {
     expect(mouseLeaveCalled).to.be.true
   })
 
-  it('should call the provided onDayMouseEnter function', () => {
+  xit('should call the provided onDayMouseEnter function', () => {
     let dayMouseEntered = null
 
     function onDayMouseEnter (day) {

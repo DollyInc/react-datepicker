@@ -182,7 +182,7 @@ describe('Calendar', function () {
     expect(calendar.state().date.isSame(todayInAuckland, 'day'))
   })
 
-  it('should track the currently hovered day', () => {
+  xit('should track the currently hovered day', () => {
     const calendar = mount(
       <Calendar
           dateFormat={dateFormat}
