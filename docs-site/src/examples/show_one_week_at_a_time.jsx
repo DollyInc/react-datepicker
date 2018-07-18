@@ -40,7 +40,7 @@ export default class ShowOneWeek extends React.Component {
       <div className="column">
         <DatePicker
             inline
-            showOneWeekAtATime
+            showTwoWeeksAtATime
             subtexts={this.state.subtexts}
             selected={this.state.startDate}
             onChange={this.handleChange} />
