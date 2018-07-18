@@ -56,6 +56,7 @@ export default class Calendar extends React.Component {
     todayButton: PropTypes.string,
     utcOffset: PropTypes.number,
     showOneWeekAtATime: PropTypes.bool,
+    showTwoWeeksAtATime: PropTypes.bool,
     subtexts: PropTypes.array
   }
 
@@ -127,16 +128,18 @@ export default class Calendar extends React.Component {
   localizeMoment = date => date.clone().locale(this.props.locale || moment.locale())
 
   increaseMonth = () => {
-    let timeDuration = this.props.showOneWeekAtATime ? 'week' : 'month'
+    let timeDuration = (this.props.showOneWeekAtATime || this.props.showTwoWeeksAtATime) ? 'week' : 'month'
+    const count = this.props.showTwoWeeksAtATime ? 2 : 1;
     this.setState({
-      date: this.state.date.clone().add(1, timeDuration)
+      date: this.state.date.clone().add(count, timeDuration)
     }, () => this.handleMonthChange(this.state.date))
   }
 
   decreaseMonth = () => {
-    let timeDuration = this.props.showOneWeekAtATime ? 'week' : 'month'
+    let timeDuration = (this.props.showOneWeekAtATime || this.props.showTwoWeeksAtATime) ? 'week' : 'month'
+    const count = this.props.showTwoWeeksAtATime ? 2 : 1;
     this.setState({
-      date: this.state.date.clone().subtract(1, timeDuration)
+      date: this.state.date.clone().subtract(count, timeDuration)
     }, () => this.handleMonthChange(this.state.date))
   }
 
@@ -303,6 +306,7 @@ export default class Calendar extends React.Component {
                 endDate={this.props.endDate}
                 peekNextMonth={this.props.peekNextMonth}
                 showOneWeekAtATime={this.props.showOneWeekAtATime}
+                showTwoWeeksAtATime={this.props.showTwoWeeksAtATime}
                 utcOffset={this.props.utcOffset}
                 subtexts={this.props.subtexts}/>
           </div>

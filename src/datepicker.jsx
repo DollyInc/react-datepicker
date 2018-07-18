@@ -77,6 +77,7 @@ export default class DatePicker extends React.Component {
     value: PropTypes.string,
     withPortal: PropTypes.bool,
     showOneWeekAtATime: PropTypes.bool,
+    showTwoWeeksAtATime: PropTypes.bool,
     subtexts: PropTypes.array
   }
 
@@ -366,6 +367,7 @@ export default class DatePicker extends React.Component {
         onDropdownFocus={this.handleDropdownFocus}
         onMonthChange={this.props.onMonthChange}
         showOneWeekAtATime={this.props.showOneWeekAtATime}
+        showTwoWeeksAtATime={this.props.showTwoWeeksAtATime}
         className={this.props.calendarClassName}
         subtexts={this.props.subtexts}>
       {this.props.children}

@@ -30,6 +30,7 @@ export default class Month extends React.Component {
     startDate: PropTypes.object,
     utcOffset: PropTypes.number,
     showOneWeekAtATime: PropTypes.bool,
+    showTwoWeeksAtATime: PropTypes.bool,
     subtexts: PropTypes.array
   }
 
@@ -61,7 +62,7 @@ export default class Month extends React.Component {
     const weeks = []
     var isFixedHeight = this.props.fixedHeight
     let currentWeekStart = this.props.day.clone().startOf('month').startOf('week')
-    if (this.props.showOneWeekAtATime) {
+    if (this.props.showOneWeekAtATime || this.props.showTwoWeeksAtATime) {
       currentWeekStart = this.props.day.clone().startOf('week')
     }
     let i = 0
@@ -93,6 +94,7 @@ export default class Month extends React.Component {
           subtexts={this.props.subtexts ? this.props.subtexts[i] : []}/>)
 
       if (this.props.showOneWeekAtATime) break
+      if (this.props.showTwoWeeksAtATime && i == 1) break
 
       if (breakAfterNextPush) break
 
