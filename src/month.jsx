@@ -65,10 +65,9 @@ export default class Month extends React.Component {
     if (this.props.showOneWeekAtATime || this.props.showTwoWeeksAtATime) {
       currentWeekStart = this.props.day.clone().startOf('week')
     }
-    let i = 0
-    let breakAfterNextPush = false
-
-    while (true) {
+    let i = this.props.showTwoWeeksAtATime ? 2 : 1;
+    
+    while (i > 0) {
       weeks.push(<Week
           key={i}
           day={currentWeekStart}
@@ -93,26 +92,8 @@ export default class Month extends React.Component {
           utcOffset={this.props.utcOffset}
           subtexts={this.props.subtexts ? this.props.subtexts[i] : []}/>)
 
-      if (this.props.showOneWeekAtATime) break
-      if (this.props.showTwoWeeksAtATime && i == 1) break
-
-      if (breakAfterNextPush) break
-
-      i++
-      currentWeekStart = currentWeekStart.clone().add(1, 'weeks')
-
-      // If one of these conditions is true, we will either break on this week
-      // or break on the next week
-      const isFixedAndFinalWeek = isFixedHeight && i >= FIXED_HEIGHT_STANDARD_WEEK_COUNT
-      const isNonFixedAndOutOfMonth = !isFixedHeight && !this.isWeekInMonth(currentWeekStart)
-
-      if (isFixedAndFinalWeek || isNonFixedAndOutOfMonth) {
-        if (this.props.peekNextMonth) {
-          breakAfterNextPush = true
-        } else {
-          break
-        }
-      }
+      currentWeekStart = currentWeekStart.clone().add(1, 'weeks');
+      i--;
     }
 
     return weeks
