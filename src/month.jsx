@@ -66,6 +66,7 @@ export default class Month extends React.Component {
       currentWeekStart = this.props.day.clone().startOf('week').add(1, 'day')
     }
     let i = this.props.showTwoWeeksAtATime ? 2 : 1;
+    let j = 0;
     while (i > 0) {
       weeks.push(<Week
           key={i}
@@ -89,9 +90,10 @@ export default class Month extends React.Component {
           startDate={this.props.startDate}
           endDate={this.props.endDate}
           utcOffset={this.props.utcOffset}
-          subtexts={this.props.subtexts ? this.props.subtexts[i] : []}/>)
+          subtexts={this.props.subtexts ? this.props.subtexts[j] : []}/>)
 
       currentWeekStart = currentWeekStart.clone().add(1, 'weeks');
+      j++;
       i--;
     }
 
