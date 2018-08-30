@@ -61,9 +61,9 @@ export default class Month extends React.Component {
   renderWeeks = () => {
     const weeks = []
     var isFixedHeight = this.props.fixedHeight
-    let currentWeekStart = this.props.day.clone().startOf('month').startOf('week').add(1, 'day')
+    let currentWeekStart = this.props.day.clone().startOf('month').startOf('week')
     if (this.props.showOneWeekAtATime || this.props.showTwoWeeksAtATime) {
-      currentWeekStart = this.props.day.clone().startOf('week').add(1, 'day')
+      currentWeekStart = this.props.day.clone().startOf('week')
     }
     let i = this.props.showTwoWeeksAtATime ? 2 : 1;
     let j = 0;
