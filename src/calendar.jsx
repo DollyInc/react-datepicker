@@ -170,7 +170,7 @@ export default class Calendar extends React.Component {
   }
 
   header = (date = this.state.date) => {
-    const startOfWeek = date.clone().startOf('week').add(1, 'day')
+    const startOfWeek = date.clone().startOf('week')
     const dayNames = []
     if (this.props.showWeekNumbers) {
       dayNames.push(
