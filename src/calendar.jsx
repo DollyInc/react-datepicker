@@ -144,7 +144,7 @@ export default class Calendar extends React.Component {
     }, () => this.handleMonthChange(this.state.date))
   }
 
-  isExludedDay = (day) => this.props.excludeDates && this.props.excludeDates.indexOf(day.format('YYYY-MM-DD')) > -1
+  isExludedDay = (day) => this.props.excludeDates.indexOf(day.format('YYYY-MM-DD')) > -1
 
   handleDayClick = (day, event) => {
     if (this.isExludedDay(day))
@@ -198,9 +198,9 @@ export default class Calendar extends React.Component {
   }
 
   renderPreviousMonthButton = () => {
-    if (!this.props.forceShowMonthNavigation && allDaysDisabledBefore(this.state.date, 'month', this.props)) {
-      return
-    }
+    // if (!this.props.forceShowMonthNavigation && allDaysDisabledBefore(this.state.date, 'month', this.props)) {
+    //   return
+    // }
     return <a
         className="react-datepicker__navigation react-datepicker__navigation--previous"
         onClick={this.decreaseMonth} />

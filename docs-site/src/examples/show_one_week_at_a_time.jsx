@@ -51,7 +51,8 @@ export default class ShowOneWeek extends React.Component {
             selected={this.state.startDate}
             onChange={this.handleChange}
             onDisabledClick={this.handleClick}
-            excludeDates={[moment().add(1, 'days').format('YYYY-MM-DD'), moment().add(2, 'days').format('YYYY-MM-DD')]} />
+            excludeDates={[moment().add(1, 'days').format('YYYY-MM-DD'), moment().add(2, 'days').format('YYYY-MM-DD')]}
+            minDate={moment().startOf('day')} />
       </div>
     </div>
   }
