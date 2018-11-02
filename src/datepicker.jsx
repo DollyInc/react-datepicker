@@ -6,6 +6,7 @@ import classnames from 'classnames'
 import { isSameDay, isDayDisabled, isDayInRange, getEffectiveMinDate, getEffectiveMaxDate, parseDate, safeDateFormat } from './date_utils'
 import moment from 'moment'
 import onClickOutside from 'react-onclickoutside'
+import 'moment/locale/en-gb'
 
 var outsideClickIgnoreClass = 'react-datepicker-ignore-onclickoutside'
 var WrappedCalendar = onClickOutside(Calendar)
@@ -78,7 +79,8 @@ export default class DatePicker extends React.Component {
     withPortal: PropTypes.bool,
     showOneWeekAtATime: PropTypes.bool,
     showTwoWeeksAtATime: PropTypes.bool,
-    subtexts: PropTypes.array
+    subtexts: PropTypes.array,
+    onDisabledClick: PropTypes.func
   }
 
   static get defaultProps () {
@@ -369,7 +371,8 @@ export default class DatePicker extends React.Component {
         showOneWeekAtATime={this.props.showOneWeekAtATime}
         showTwoWeeksAtATime={this.props.showTwoWeeksAtATime}
         className={this.props.calendarClassName}
-        subtexts={this.props.subtexts}>
+        subtexts={this.props.subtexts}
+        onDisabledClick={this.props.onDisabledClick}>
       {this.props.children}
     </WrappedCalendar>
   }

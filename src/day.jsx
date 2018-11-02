@@ -28,9 +28,7 @@ export default class Day extends React.Component {
   }
 
   handleClick = (event) => {
-    if (!this.isDisabled() && this.props.onClick) {
-      this.props.onClick(event)
-    }
+    this.props.onClick(event)
   }
 
   handleMouseEnter = (event) => {

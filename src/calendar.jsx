@@ -57,7 +57,8 @@ export default class Calendar extends React.Component {
     utcOffset: PropTypes.number,
     showOneWeekAtATime: PropTypes.bool,
     showTwoWeeksAtATime: PropTypes.bool,
-    subtexts: PropTypes.array
+    subtexts: PropTypes.array,
+    onDisabledClick: PropTypes.func
   }
 
   static get defaultProps () {
@@ -143,7 +144,14 @@ export default class Calendar extends React.Component {
     }, () => this.handleMonthChange(this.state.date))
   }
 
-  handleDayClick = (day, event) => this.props.onSelect(day, event)
+  isExludedDay = (day) => this.props.excludeDates && this.props.excludeDates.indexOf(day.format('YYYY-MM-DD')) > -1
+
+  handleDayClick = (day, event) => {
+    if (this.isExludedDay(day))
+      this.props.onDisabledClick()
+    else
+      this.props.onSelect(day, event)
+  }
 
   handleDayMouseEnter = day => {
     this.setState({ selectingDate: day })
@@ -170,7 +178,7 @@ export default class Calendar extends React.Component {
   }
 
   header = (date = this.state.date) => {
-    const startOfWeek = date.clone().startOf('week').add(1, 'day')
+    const startOfWeek = date.clone().startOf('week')
     const dayNames = []
     if (this.props.showWeekNumbers) {
       dayNames.push(

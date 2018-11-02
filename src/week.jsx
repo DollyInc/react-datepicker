@@ -41,7 +41,7 @@ export default class Week extends React.Component {
   }
 
   renderDays = () => {
-    const startOfWeek = this.props.day.clone().startOf('week').add(1, 'day')
+    const startOfWeek = this.props.day.clone().startOf('week')
     const days = []
     if (this.props.showWeekNumber) {
       days.push(<WeekNumber key="W" weekNumber={parseInt(startOfWeek.format('w'), 10)} />)

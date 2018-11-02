@@ -24,6 +24,10 @@ export default class ShowOneWeek extends React.Component {
     })
   }
 
+  handleClick = () => {
+    console.log('click')
+  }
+
   render () {
     return <div className="row">
       <pre className="column example__code">
@@ -33,6 +37,8 @@ export default class ShowOneWeek extends React.Component {
     showOneWeekAtATime
     selected={this.state.startDate}
     onChange={this.handleChange}
+    onDisabledClick={this.handleClick}
+    excludeDates={[moment(), moment().add(1, 'days')]}
 />
 `}
         </code>
@@ -43,7 +49,9 @@ export default class ShowOneWeek extends React.Component {
             showTwoWeeksAtATime
             subtexts={this.state.subtexts}
             selected={this.state.startDate}
-            onChange={this.handleChange} />
+            onChange={this.handleChange}
+            onDisabledClick={this.handleClick}
+            excludeDates={[moment().add(1, 'days').format('YYYY-MM-DD'), moment().add(2, 'days').format('YYYY-MM-DD')]} />
       </div>
     </div>
   }
