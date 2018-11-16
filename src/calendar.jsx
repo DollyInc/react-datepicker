@@ -133,7 +133,7 @@ export default class Calendar extends React.Component {
     const count = this.props.showTwoWeeksAtATime ? 2 : 1;
     this.setState({
       date: this.state.date.clone().add(count, timeDuration)
-    }, () => this.handleMonthChange(this.state.date))
+    }, () => this.handleMonthChange(this.state.date.clone().startOf('week').add(1, 'day')))
   }
 
   decreaseMonth = () => {
@@ -141,7 +141,7 @@ export default class Calendar extends React.Component {
     const count = this.props.showTwoWeeksAtATime ? 2 : 1;
     this.setState({
       date: this.state.date.clone().subtract(count, timeDuration)
-    }, () => this.handleMonthChange(this.state.date))
+    }, () => this.handleMonthChange(this.state.date.clone().startOf('week')))
   }
 
   isExludedDay = (day) => this.props.excludeDates.indexOf(day.format('YYYY-MM-DD')) > -1
@@ -161,6 +161,7 @@ export default class Calendar extends React.Component {
 
   handleMonthChange = (date) => {
     if (this.props.onMonthChange) {
+      console.log(date)
       this.props.onMonthChange(date)
     }
   }
