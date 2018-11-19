@@ -133,7 +133,7 @@ export default class Calendar extends React.Component {
     const count = this.props.showTwoWeeksAtATime ? 2 : 1;
     this.setState({
       date: this.state.date.clone().add(count, timeDuration)
-    }, () => this.handleMonthChange(this.state.date.clone().startOf('week').add(1, 'day')))
+    }, () => this.handleMonthChange(this.state.date.clone().startOf('week')))
   }
 
   decreaseMonth = () => {
