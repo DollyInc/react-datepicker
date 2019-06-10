@@ -49,6 +49,9 @@ export default class Week extends React.Component {
     return days.concat([0, 1, 2, 3, 4, 5, 6].map(offset => {
       const day = startOfWeek.clone().add(offset, 'days')
       const subtext = this.props.subtexts ? this.props.subtexts[offset] : null
+      const value = subtext ? subtext.value : ''
+      const style = subtext ? subtext.style : 'black'
+
       return (
         <Day
             key={offset}
@@ -71,7 +74,8 @@ export default class Week extends React.Component {
             startDate={this.props.startDate}
             endDate={this.props.endDate}
             utcOffset={this.props.utcOffset}
-            subtext={subtext}/>
+            subtext={value}
+            subtextStyle={style}/>
       )
     }))
   }
