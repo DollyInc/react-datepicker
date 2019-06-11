@@ -20,8 +20,7 @@ export default class Day extends React.Component {
     selectsStart: PropTypes.bool,
     startDate: PropTypes.object,
     utcOffset: PropTypes.number,
-    subtext: PropTypes.string,
-    subTextStyle: PropTypes.string
+    subtext: PropTypes.object
   }
 
   static defaultProps = {
@@ -133,11 +132,6 @@ export default class Day extends React.Component {
       this.props.month !== this.props.day.month()
   }
 
-  getSubtextStyle = () => {
-    return this.props.subtextStyle;
-  }
-
-
   getContainerClassNames = () => {
     return classnames('react-datepicker__day', {
       'react-datepicker__day--range-start': this.isRangeStart(),
@@ -162,6 +156,8 @@ export default class Day extends React.Component {
   }
 
   render () {
+    const subtext = this.props.subtext ? this.props.subtext.value : '';
+    const style = this.props.subtext ? this.props.subtext.style : null;
     return (
       <div
           className={this.getContainerClassNames()}>
@@ -173,8 +169,8 @@ export default class Day extends React.Component {
             onMouseEnter={this.handleMouseEnter}>
           {this.props.day.date()}
         </div>
-        <div style={{color: this.getSubtextStyle()}}>
-          {this.props.subtext}
+        <div style={style}>
+          {subtext}
         </div>
       </div>
     )
